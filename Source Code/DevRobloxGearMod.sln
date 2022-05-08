@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32413.511
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevRobloxGearMod", "DevRobloxGearMod.csproj", "{AEA647AD-8271-437B-937F-DDE25F4DC791}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEA647AD-8271-437B-937F-DDE25F4DC791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEA647AD-8271-437B-937F-DDE25F4DC791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEA647AD-8271-437B-937F-DDE25F4DC791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEA647AD-8271-437B-937F-DDE25F4DC791}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {689C19CB-59AE-4A62-842A-A8594CFDD169}
+	EndGlobalSection
+EndGlobal
