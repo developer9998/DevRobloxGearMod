@@ -6,14 +6,14 @@ using System.IO;
 using System.Reflection;
 using UnityEngine;
 using Utilla;
-
+using GorillaNetworking;
 
 namespace DevRobloxGearMod
 {
     [Description("HauntedModMenu")]
     [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
     [BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
-    [ModdedGamemode]
+    [ModdedGamemode("devmonkblox", "MONKBLOX", Utilla.Models.BaseGamemode.Casual)]
     public class Plugin : BaseUnityPlugin
     {
 
@@ -51,6 +51,12 @@ namespace DevRobloxGearMod
         public static Material activedButton = Resources.Load<Material>("objects/treeroom/materials/pressed");
         public static Material inactiveButton = Resources.Load<Material>("objects/treeroom/materials/plastic");
 
+        void Awake()
+        {
+            Utilla.Events.RoomJoined += RoomJoined;
+            Utilla.Events.RoomLeft += RoomLeft;
+        }
+
         void OnEnable() // when the mod is enabled, it'll run OnGameInitialized
         {
             Utilla.Events.GameInitialized += OnGameInitialized;
@@ -67,7 +73,7 @@ namespace DevRobloxGearMod
             GiverFolder = new GameObject();
             GiverFolder.transform.SetParent(null, false);
             GiverFolder.name = "DevRobloxGearModGiverFolder"; // long name lol
-            GiverFolder.gameObject.SetActive(true);
+            GiverFolder.gameObject.SetActive(false);
 
             Stream str = Assembly.GetExecutingAssembly().GetManifestResourceStream("DevRobloxGearMod.Resources.Items.burger");
             AssetBundle bundle = AssetBundle.LoadFromStream(str);
@@ -220,6 +226,49 @@ namespace DevRobloxGearMod
 
         }
 
+        private void RoomJoined(object sender, Events.RoomJoinedArgs e)
+        {
+            string queue = GorillaComputer.instance.currentGameMode;
+            if (queue == "MODDED_devmonkbloxCASUAL" && !e.isPrivate)
+            {
+                GiverFolder.gameObject.SetActive(true);
+                inAllowedRoom = true;
+                Burger.transform.GetChild(0).gameObject.SetActive(true);
+                BloxyCola.transform.GetChild(0).gameObject.SetActive(true);
+                SpeedCoil.transform.GetChild(0).gameObject.SetActive(true);
+                Pizza.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            else
+            if (queue == "MODDED_devmonkbloxCASUAL" && e.isPrivate)
+            {
+                GiverFolder.gameObject.SetActive(false);
+                inAllowedRoom = false;
+                Burger.transform.GetChild(0).gameObject.SetActive(false);
+                BloxyCola.transform.GetChild(0).gameObject.SetActive(false);
+                SpeedCoil.transform.GetChild(0).gameObject.SetActive(false);
+                Pizza.transform.GetChild(0).gameObject.SetActive(false);
+            }
+            else
+            {
+                GiverFolder.gameObject.SetActive(false);
+                inAllowedRoom = false;
+                Burger.transform.GetChild(0).gameObject.SetActive(false);
+                BloxyCola.transform.GetChild(0).gameObject.SetActive(false);
+                SpeedCoil.transform.GetChild(0).gameObject.SetActive(false);
+                Pizza.transform.GetChild(0).gameObject.SetActive(false);
+            }
+        }
+
+        private void RoomLeft(object sender, Events.RoomJoinedArgs e)
+        {
+            GiverFolder.gameObject.SetActive(false);
+            inAllowedRoom = false;
+            Burger.transform.GetChild(0).gameObject.SetActive(false);
+            BloxyCola.transform.GetChild(0).gameObject.SetActive(false);
+            SpeedCoil.transform.GetChild(0).gameObject.SetActive(false);
+            Pizza.transform.GetChild(0).gameObject.SetActive(false);
+        }
+
         void Update() // every frame after OnGameInitialized
         {
             if (mode == 1)
@@ -310,7 +359,7 @@ namespace DevRobloxGearMod
         private void RoomJoined(string gamemode) // joined a modded lobby
         {
             // The room is modded. Enable mod stuff.
-            inAllowedRoom = true;
+            //inAllowedRoom = true;
             maxJumpSpeed = GorillaLocomotion.Player.Instance.maxJumpSpeed;
             JumpMultiplier = GorillaLocomotion.Player.Instance.jumpMultiplier;
         }
@@ -319,7 +368,7 @@ namespace DevRobloxGearMod
         private void RoomLeft(string gamemode) // left a modded lobby
         {
             // The room was left. Disable mod stuff.
-            inAllowedRoom = false;
+           // inAllowedRoom = false;
             maxJumpSpeed = GorillaLocomotion.Player.Instance.maxJumpSpeed;
             JumpMultiplier = GorillaLocomotion.Player.Instance.jumpMultiplier;
         }
