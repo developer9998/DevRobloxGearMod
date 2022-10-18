@@ -80,7 +80,7 @@ namespace DevRobloxGearMod
             GameObject cheezeburgerGameObject = bundle.LoadAsset<GameObject>("Cheezburger");
             Burger = Instantiate(cheezeburgerGameObject);
 
-            GameObject Hand = GameObject.Find("OfflineVRRig/Actual Gorilla/rig/body/shoulder.R/upper_arm.R/forearm.R/hand.R/palm.01.R");
+            GameObject Hand = GorillaTagger.Instance.offlineVRRig.rightHandTransform.parent.Find("palm.01.R").gameObject;
             Head = GameObject.Find("OfflineVRRig/Actual Gorilla/rig/body/head");
             Burger.transform.SetParent(Hand.transform, false);
             Burger.transform.localPosition = new Vector3(-0.078f, 0.01130111f, 0.004799806f);
